@@ -3,19 +3,25 @@
 
 import sys, math
 
+
 def print_help():
     if len(sys.argv) == 2 and sys.argv[1] == "-h":
-        print("USAGE\n\t./205IQ u s [low_iq] [high_IQ]\n\nDESCRIPTION\n\tμ\tpredetermined menu\n\tσ\tpredetermined standard deviation\n\tlow_iq\tminimum IQ\n\thigh_IQ\tmaximum IQ")
+        print(
+            "USAGE\n\t./205IQ u s [low_iq] [high_IQ]\n\nDESCRIPTION\n\tμ\tpredetermined menu\n\tσ\tpredetermined standard deviation\n\tlow_iq\tminimum IQ\n\thigh_IQ\tmaximum IQ"
+        )
         exit(0)
 
+
 def print_error():
-    print ("Error : wrong values")
+    print("Error : wrong values")
     exit(84)
+
 
 def check_enough_values():
     if len(sys.argv) < 3 or len(sys.argv) > 5:
         print_error()
     return len(sys.argv)
+
 
 def get_values():
     try:
@@ -27,6 +33,7 @@ def get_values():
         print_error()
     return u, s
 
+
 def get_iq(a):
     try:
         iq = int(sys.argv[a])
@@ -36,20 +43,25 @@ def get_iq(a):
         print_error()
     return iq
 
+
 def calc_3_args(u, s):
     res = 0.0
     for i in range(201):
-        res = (1 / (float(s) * math.sqrt(2 * math.pi))) * math.exp(-0.5 * pow((float(i) - float(u)) / float(s), 2))
+        res = (1 / (float(s) * math.sqrt(2 * math.pi))) * math.exp(-0.5 * pow(
+            (float(i) - float(u)) / float(s), 2))
         print(i, "%.5f" % res)
+
 
 def calc_4_args(u, s):
     low_iq = get_iq(3)
     n = 0.0
     i = 0.0
     while i < low_iq:
-        n += (1 / (float(s) * math.sqrt(2 * math.pi))) * math.exp(-0.5 * pow((float(i) - float(u)) / float(s), 2))
+        n += (1 / (float(s) * math.sqrt(2 * math.pi))) * math.exp(-0.5 * pow(
+            (float(i) - float(u)) / float(s), 2))
         i += 0.01
     print("%0.1f%% of people have an IQ inferior to %d" % (n, low_iq))
+
 
 def calc_5_args(u, s):
     low_iq = get_iq(3)
@@ -59,9 +71,12 @@ def calc_5_args(u, s):
     i = float(low_iq)
     n = 0.0
     while i < high_iq:
-        n += (1 / (float(s) * math.sqrt(2 * math.pi))) * math.exp(-0.5 * pow((float(i) - float(u)) / float(s), 2))
+        n += (1 / (float(s) * math.sqrt(2 * math.pi))) * math.exp(-0.5 * pow(
+            (float(i) - float(u)) / float(s), 2))
         i += 0.01
-    print("%0.1f%% of people have an IQ between %d and %d" % (n, low_iq, high_iq))
+    print("%0.1f%% of people have an IQ between %d and %d" %
+          (n, low_iq, high_iq))
+
 
 def which_calc(u, s, len_argv):
     if len_argv == 3:
@@ -71,10 +86,12 @@ def which_calc(u, s, len_argv):
     elif len_argv == 5:
         calc_5_args(u, s)
 
+
 def main():
     print_help()
     len_argv = check_enough_values()
     u, s = get_values()
     which_calc(u, s, len_argv)
+
 
 main()
